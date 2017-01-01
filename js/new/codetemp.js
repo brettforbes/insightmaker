@@ -1,0 +1,75 @@
+var IMAGE_PATH = 'images';
+
+Messaging ENdpoints
+
+Messaging Patterns
+
+
+MEssaging RoutingSlip
+
+MEssaging CHannel
+
+
+Systems Management
+
+
+Message Transformation
+
+
+Aggregator
+Channel
+ChannelAdapter
+ChannelPurger
+ClaimCheck
+CommandMessage
+CompetingConsumers
+ComposedMessageProcessor
+ContentBasedRouter
+ContentEnricher
+ContentFilter
+ControlBus
+CorrelationID
+DataTypeChannel
+DeadLetterChannel
+Detour
+DocumentMessage
+DurableSubscriber
+EnvelopeWrapper
+EventDrivenConsumer
+EventMessage
+GuaranteedDelivery
+InvalidMessageChannel
+Message
+MessageBranch
+MessageBus
+MessageDispatcher
+MessageEndpoint
+MessageFilter
+MessageInput
+MessageRouter
+MessageSequence
+MessageStore
+MessageTranslator
+MessagingBridge
+MessagingGateway
+Normalizer
+PollingConsumer
+ProcessManager
+PublishSubscribeChannel
+RecipientList
+RequestReply
+Resquencer
+ReturnAddress
+RoutingSlip
+SelectiveConsumer
+ServiceActivator
+Splitter
+TestMessage
+TransactionalClient
+WireTap
+Heirarchy
+
+
+Linkso ne way
+Stock APplciations
+Converter

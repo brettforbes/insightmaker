@@ -1,4 +1,4 @@
-/* @override http://insightmaker.dev/builder/css/insighteditor.css */
+
 
 .description_link {
 	float: right;
@@ -19,14 +19,6 @@
 	text-decoration: underline;
 }
 
-/*
-.sidebar_top {
-	margin:  5px;
-	background-color: palegoldenrod;
-	padding:  6px;
-	border-radius: 5px;
-}
-*/
 
 .sidebar_description ul {
 	list-style: disc outside none;

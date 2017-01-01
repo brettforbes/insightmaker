@@ -831,12 +831,7 @@ function main() {
 	}*/
 
 	if ((graph_source_data != null && graph_source_data.length > 0) || drupal_node_ID == -1) {
-		var code;
-		if (drupal_node_ID == -1) {
-			code = blankGraphTemplate;
-		} else {
-			code = graph_source_data;
-		}
+        var code = graph_source_data;
 
 		var doc = mxUtils.parseXml(code);
 		var dec = new mxCodec(doc);
@@ -1527,11 +1522,7 @@ function main() {
 
 			//no primitive has been selected. Stick in empty text and sliders.
 			if (drupal_node_ID == -1 && slids.length == 0) {
-				if (is_ebook) {
-					topDesc = "<center><big>Select a primitive to see its properties.</big></center>";
-				} else {
-					topDesc = "<center><a href='https://www.youtube.com/watch?v=zskFaBZt3HA' target='_blank'><img src='" + builder_path + "/images/Help.jpg' width=217 height=164 /><br><big>Watch this short video &rsaquo; </big></a><br/><br/><br/>Or take a look at the <a href='http://InsightMaker.com/help' target='_blank'>Detailed Insight Maker Manual</a><br/><br/>There is also a <a href='https://kumu.io/stw/insight-maker' target='_blank'>free, on-line education course</a> which teaches you how to think in a systems manner using Insight Maker.</center>";
-				}
+
 			} else {
 
 				var topDesc = clean(graph_description);
