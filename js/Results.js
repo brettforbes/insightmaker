@@ -1889,12 +1889,10 @@ function createResultsWindow(displayInformation, config) {
 		}]
 	};
 
-	if (is_ebook) {
-		winConfig.maximizable = false;
-		winConfig.closable = false;
-		winConfig.resizable = false;
-		winConfig.minimizable = false;
-	}
+    winConfig.maximizable = false;
+    winConfig.closable = false;
+    winConfig.resizable = false;
+    winConfig.minimizable = false;
 
 	winConfig.stateful = is_editor && (!is_embed);
 	winConfig.stateId = "results_window";

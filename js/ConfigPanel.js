@@ -168,13 +168,7 @@ function createGrid(properties, topItems, bottomItems, selectedPrimitive) {
 		configPanel.add(bottomItems[i]);
 	}
 	
-	/*var el = $('.slider-holder > div > div')[0];
-	if(el){
-		Sortable.create(el, {
-			draggable: ".single-slider"
-		});
-	}*/
-	
+
 	
 	
 
@@ -331,8 +325,6 @@ var ConfigPanel = function()
         split: true,
 		autoScroll: true,
 		listeners: {beforeexpand:function(p){setSelected([])}, beforecollapse:function(){
-			//grid.destroy();
-			//configPanel.removeAll();
 		}},
         collapsible: ! mxClient.IS_TOUCH, /*XXX SFR FIXME TODO: Bug on mobile devices with collapsing when the grid has been created */
 		header: ! is_embed,

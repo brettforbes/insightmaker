@@ -36,6 +36,29 @@ var viewConfig = {
 	showResultsEdit: true,
 	showImportExport: true
 };
+
+var editorConfig = {
+    environment: environment.AutoDetect,
+    showTopLinks: true,
+    sideBarWidth: 330,
+    referenceBarWidth: 240,
+    enableContextMenu: true,
+    focusDiagram: true,
+    allowEdits: is_editor && (! is_embed),
+    saveEnabled: true,
+    buttonGroups: true,
+    showLogo: true,
+    primitiveGroup: true,
+    connectionsGroup: true,
+    actionsGroup: true,
+    styleGroup: true,
+    toolsGroup: true,
+    exploreGroup: false,
+    fullScreenResults: false,
+    showResultsEdit: true,
+    showImportExport: true
+};
+
 environmentConfig();
 
 function environmentAutoDetect() {
@@ -62,21 +85,6 @@ function environmentConfig() {
 	}
 }
 
-if(is_ebook){
-	viewConfig.showTopLinks = false;
-	viewConfig.sideBarWidth = 250;
-	viewConfig.referenceBarWidth = 150;
-	viewConfig.focusDiagram = false;
-	viewConfig.saveEnabled = false;
-	viewConfig.showLogo = false;
-	viewConfig.primitiveGroup = false;
-	viewConfig.actionsGroup = true;
-	viewConfig.styleGroup = false;
-	viewConfig.runFlush = true;
-	viewConfig.fullScreenResults = true;
-	viewConfig.showResultsEdit = false;
-	
-}
 
 if(is_embed){
 	viewConfig.sideBarWidth = 200;

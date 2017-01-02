@@ -155,7 +155,7 @@ var scratchpadFn = function() {
 var editActions = [];
 
 editActions.copy = {
-	hidden: is_ebook,
+	hidden: false,
 	itemId: 'copy',
 	text: getText('Copy'),
 	glyph: 0xf0c5,
@@ -168,7 +168,7 @@ editActions.copy = {
 };
 
 editActions.cut = {
-	hidden: is_ebook,
+	hidden: false,
 	itemId: 'cut',
 	text: getText('Cut'),
 	glyph: 0xf0c4,
@@ -183,7 +183,7 @@ editActions.cut = {
 };
 
 editActions.paste = {
-	hidden: is_ebook,
+	hidden: false,
 	text: getText('Paste'),
 	glyph: 0xf0ea,
 	tooltip: getText('Paste') + ' ' + cmd("V"),
@@ -210,7 +210,7 @@ editActions["delete"] = {
 
 var sizeCombo;
 var fontCombo;
-var RibbonPanel = function(graph, mainPanel, configPanel) {
+var RibbonPanel = function(graph, editorPanel, mainPanel, configPanel) {
 	Ext.Ajax.timeout = 60000;
 
 	var imageMenu = {
@@ -1083,7 +1083,7 @@ var RibbonPanel = function(graph, mainPanel, configPanel) {
 		region: 'center',
 		split: true,
 		border: false,
-		items: [mainPanel, configPanel],
+		items: [editorPanel, mainPanel, configPanel],
 		collapsible: false,
 		tbar: new Ext.toolbar.Toolbar({
 			enableOverflow: true,
@@ -1252,7 +1252,7 @@ var RibbonPanel = function(graph, mainPanel, configPanel) {
 					text: getText('Share'),
 					itemId: 'share',
 					menu: [{
-							hidden: (!is_editor) || is_ebook,
+							hidden: (!is_editor),
 							text: getText('Storytelling') + "...",
 							glyph: 0xf0e6,
 							tooltip: getText('Display the model step-by-step to tell a story'),
@@ -1260,7 +1260,7 @@ var RibbonPanel = function(graph, mainPanel, configPanel) {
 							scope: this
 						},
 						{
-							hidden: (!is_editor) || is_ebook,
+							hidden: (!is_editor),
 							text: getText('Publish Article') + "...",
 							glyph: 0xf0f6,
 							tooltip: getText('Create a crisp, static webpage of describing your model'),
@@ -1270,7 +1270,7 @@ var RibbonPanel = function(graph, mainPanel, configPanel) {
 						 '-', {
 							itemId: 'embed_but',
 							text: getText('Embed in Webpage') + "...",
-							hidden: (!is_editor) || is_ebook,
+							hidden: (!is_editor),
 							glyph: 0xf0ac,
 							tooltip: getText('Embed this Insight in another web page'),
 							handler: function() {
@@ -1359,7 +1359,7 @@ var RibbonPanel = function(graph, mainPanel, configPanel) {
 					menu: [
 						{
 							xtype: 'menuseparator',
-							hidden: (!is_editor) || is_ebook
+							hidden: (!is_editor)
 						}, {
 							text: getText('Identify Loops') + "...",
 							glyph: 0xf1ce,
@@ -1390,7 +1390,7 @@ var RibbonPanel = function(graph, mainPanel, configPanel) {
 							scope: this
 						}, {
 							xtype: 'menuseparator',
-							hidden: (!is_editor) || is_ebook
+							hidden: (!is_editor)
 						}, {
 							itemId: 'sensitivityBut',
 							text: getText('Sensitivity Testing') + "...",
@@ -1408,9 +1408,9 @@ var RibbonPanel = function(graph, mainPanel, configPanel) {
 
 						}, {
 							xtype: 'menuseparator',
-							hidden: (!is_editor) || is_ebook
+							hidden: (!is_editor)
 						}, {
-							hidden: (!is_editor) || is_embed || is_ebook,
+							hidden: (!is_editor) || is_embed,
 							itemId: 'macroBut',
 							text: getText('Macros & Variables') + "...",
 							glyph: 0xf1c9,

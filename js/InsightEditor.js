@@ -207,7 +207,7 @@ var mainPanel;
 var mxPanel;
 var ribbonPanel;
 var configPanel;
-var sizeChanging;
+var editorPanel;
 var sliders = [];
 var settingCell;
 var selectionChanged;
@@ -541,8 +541,9 @@ function main() {
 		graph.sizeDidChange();
 	});
 
+	editorPanel = Ext.create('Ext.Panel', EditorPanel());
 	configPanel = Ext.create('Ext.Panel', ConfigPanel());
-	ribbonPanel = Ext.create('Ext.Panel', RibbonPanel(graph, mainPanel, configPanel));
+	ribbonPanel = Ext.create('Ext.Panel', RibbonPanel(graph, editorPanel, mainPanel, configPanel));
 
 	window.toNum = 0;
 	var viewport = new Ext.Viewport({
@@ -870,7 +871,7 @@ function main() {
 	undoHistory.addListener(mxEvent.REDO, historyListener);
 
 	// Updates the button states once
-	selectionListener();
+	 selectionListener();
 	historyListener();
 
 
@@ -2264,7 +2265,7 @@ function showContextMenu(node, e) {
 
 
 	var paste = {
-		hidden: is_ebook,
+		hidden: false,
 		text: getText('Paste'),
 		glyph: 0xf0ea,
 		disabled: mxClipboard.isEmpty(),
@@ -2469,35 +2470,29 @@ function showContextMenu(node, e) {
 				}
 			}
 		];
-		if (!is_ebook) {
+        menuItems = menuItems.concat([
+            '-', {
+                glyph: 0xf0ed,
+                text: getText("Insert Insight Maker Model"),
+                handler: function() {
+                    showInsertModelWindow(graph.getPointForEvent(e));
+                }
+            },
+            '-', {
+                glyph: 0xf1c5,
+                text: getText("Export Diagram as SVG"),
+                handler: function() {
+                    exportSvg();
+                }
+            },
+            {
+                itemId: "zoomMenuButton",
+                text: getText('Zoom'),
+                glyph: 0xf002,
+                menu: zoomMenu
+            }
 
-
-			menuItems = menuItems.concat([
-				'-', {
-					glyph: 0xf0ed,
-					text: getText("Insert Insight Maker Model"),
-					handler: function() {
-						showInsertModelWindow(graph.getPointForEvent(e));
-					}
-				},
-				'-', {
-					glyph: 0xf1c5,
-					text: getText("Export Diagram as SVG"),
-					handler: function() {
-						exportSvg();
-					}
-				},
-				{
-					itemId: "zoomMenuButton",
-					text: getText('Zoom'),
-					glyph: 0xf002,
-					menu: zoomMenu
-				}
-
-			]);
-
-
-		}
+        ]);
 		
 		if(!mxClipboard.isEmpty()){
 			menuItems.unshift("-");

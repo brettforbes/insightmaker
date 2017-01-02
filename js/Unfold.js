@@ -216,15 +216,13 @@ var revealUnfoldButtons = function(showUnfold) {
 		Ext.getCmp('unfoldUnfoldBut').hide();
 		Ext.getCmp('editUnfoldBut').hide();
 		Ext.getCmp('reloadUnfoldBut').show();
-		if (!is_ebook) {
-			Ext.getCmp('exitUnfoldBut').show();
-		}
+        Ext.getCmp('exitUnfoldBut').show();
 
 		Ext.getCmp('messageUnfoldBut').show();
 		Ext.getCmp('nextUnfoldBut').show();
 	} else {
 		Ext.getCmp('unfoldUnfoldBut').show();
-		if (is_editor && !is_ebook) {
+		if (is_editor) {
 			Ext.getCmp('editUnfoldBut').show();
 		}
 		Ext.getCmp('reloadUnfoldBut').hide();
