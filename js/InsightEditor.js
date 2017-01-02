@@ -54,7 +54,7 @@ Ext.override(Ext.form.HtmlEditor, {
 			txt = '<a href="' + url + '" target="_blank">' + txt + '</a>';
 
 			if (Ext.isIE) {
-				range = this.getDoc().selection.createRange();
+				var range = this.getDoc().selection.createRange();
 				if (range) {
 					range.pasteHTML(txt);
 					this.syncValue();
