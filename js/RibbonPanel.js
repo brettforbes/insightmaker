@@ -1088,167 +1088,111 @@ var RibbonPanel = function(graph, mainPanel, configPanel) {
 		tbar: new Ext.toolbar.Toolbar({
 			enableOverflow: true,
 			items: FileMenu.concat([
-
-				{
-					hidden: (!viewConfig.primitiveGroup),
-					text: getText('Add Primitive'),
-					itemId: 'valued',
-					iconCls: 'green-icon',
-					glyph: 0xf055,
-					menu: [{
-							xtype: "component",
-							indent: false,
-							html: "<b>" + getText('System Dynamics') + "</b>",
-							disabled: true,
-							style: {
-								"margin": "10px 5px 10px 5px"
-							}
-						}, '-', {
-							itemId: 'stock',
-							text: getText('Add Stock'),
-							glyph: 0xf1b2,
-							tooltip: getText('Stocks store material'),
-							handler: function() {
-								var x = createPrimitive("New Stock", "Stock", [240, 80], [100, 40]);
-								highlight(x);
-
-								graph.orderCells(false);
-
-								//setTimeout(function(){graph.cellEditor.startEditing(x)},20);
-							}
-						}, {
-							itemId: 'variable',
-							text: getText('Add Variable'),
-							glyph: 0xf0e4,
-							tooltip: getText('Variables can be constant or dynamically updated equations'),
-							handler: function() {
-								highlight(createPrimitive("New Variable", "Variable", [240, 80], [120, 50]))
-
-								graph.orderCells(false);
-							}
-						}, {
-							itemId: 'converter',
-							text: getText('Add Converter'),
-							glyph: 0xf1fe,
-							tooltip: getText('Converters can contain graphical functions or input/output tables'),
-							handler: function() {
-								highlight(createPrimitive("New Converter", "Converter", [240, 80], [120, 50]))
-
-								graph.orderCells(false);
-							}
-						}, '-', {
-							xtype: "component",
-							indent: false,
-							html: "<b>" + getText('Agent Based Modeling') + "</b>",
-							disabled: true,
-							style: {
-								"margin": "10px 5px 10px 5px"
-							}
-						}, '-', {
-							itemId: 'population',
-							glyph: 0xf0c0,
-							text: getText('Add Agent Population'),
-							tooltip: getText('Agent populations are a collection of agents'),
-							handler: function() {
-								highlight(createPrimitive("Agent Population", "Agents", [240, 80], [170, 80]))
-
-								graph.orderCells(false);
-							}
-						}, {
-							itemId: 'state',
-							glyph: 0xf046,
-							text: getText('Add State'),
-							tooltip: getText('States are binary, true/false variables'),
-							handler: function() {
-								highlight(createPrimitive("New State", "State", [240, 80], [100, 40]))
-							}
-						}, {
-							itemId: 'action',
-							glyph: 0xf0e7,
-							text: getText('Add Action'),
-							tooltip: getText('Actions can trigger a change in the model state'),
-							handler: function() {
-								highlight(createPrimitive("New Action", "Action", [240, 80], [120, 50]))
-
-								graph.orderCells(false);
-							}
-						},
-						'-', {
-
-							xtype: "component",
-							indent: false,
-							html: "<b>" + getText('User Interface') + "</b>",
-							disabled: true,
-							style: {
-								"margin": "10px 5px 10px 5px"
-							}
-						},
-						'-', {
-							itemId: 'text',
-							text: getText('Add Text Field'),
-							glyph: 0xf035,
-							tooltip: getText('Annotate your model'),
-							handler: function() {
-								highlight(createPrimitive("New Text", "Text", [240, 80], [200, 50]))
-
-								graph.orderCells(false);
-							}
-						}, {
-							itemId: 'picture',
-							text: getText('Add Picture'),
-							glyph: 0xf03e,
-							tooltip: getText('Illustrate your model'),
-							handler: function() {
-								var x = createPrimitive("", "Picture", [240, 80], [64, 64]);
-								setPicture(x);
-								highlight(x);
-
-								graph.orderCells(false);
-							}
-						}, {
-							itemId: 'buttonBut',
-							text: getText('Add Interactive Button'),
-							glyph: 0xf196,
-							tooltip: getText('Add interactivity to the model diagram'),
-							handler: function() {
-								highlight(createPrimitive("New Button", "Button", [240, 80], [120, 40]))
-
-								graph.orderCells(false);
-							}
-
-						}, '-', {
-							itemId: 'ghostBut',
-							text: getText('Ghost Primitive'),
-							glyph: 0xf0c5,
-							tooltip: getText('Create a linked alias of the selected primitive which can help you organize your model'),
-							scope: this,
-							handler: makeGhost
-						}, {
-							itemId: 'folder',
-							text: getText('Make Folder'),
-							glyph: 0xf114,
-							tooltip: getText('Create a new Folder containing the selected primitives'),
-							scope: this,
-							handler: makeFolder
-						}
-
-					]
-				}, {
-					xtype: 'tbseparator',
-					hidden: (!is_editor) || is_embed
-				},
+                {
+                    hidden: (!viewConfig.actionsGroup),
+                    text: getText('Edit'),
+                    itemId: 'actions',
+                    menu: [
+                        {
+                            hidden: !viewConfig.actionsGroup,
+                            itemId: 'undo',
+                            text: "Undo",
+                            glyph: 0xf0e2,
+                            tooltip: getText('Undo change') + ' ' + cmd("Z"),
+                            handler: function() {
+                                undoHistory.undo();
+                            },
+                            scope: this
+                        }, {
+                            hidden: !viewConfig.actionsGroup,
+                            itemId: 'redo',
+                            text: "Redo",
+                            glyph: 0xf01e,
+                            tooltip: getText('Redo change') + ' ' + cmd("Y"),
+                            handler: function() {
+                                undoHistory.redo();
+                            },
+                            scope: this
+                        },
+                        '-',
+                        editActions.copy,
+                        editActions.cut,
+                        editActions.paste,
+                        '-',
+                        editActions["delete"],
+                        '-', {
+                            text: getText('Find/Replace...'),
+                            tooltip: getText('Find text in your model') + ' ' + cmd("F"),
+                            handler: showFindAndReplace
+                        }, {
+                            text: getText('Find Next'),
+                            tooltip: getText('Find the next occurrence of text in your model') + ' ' + cmd("G"),
+                            handler: function() {
+                                var but = Ext.getCmp('findNextBut');
+                                if (but && (!but.disabled)) {
+                                    findNext();
+                                }
+                            }
+                        }, '-', {
+                            text: getText("Print..."),
+                            glyph: 0xf02f,
+                            handler: printGraph
+                        },
+                        '-', {
+                            itemId: "zoomMenuButton",
+                            text: getText('Zoom'),
+                            glyph: 0xf002,
+                            menu: zoomMenu
+                        },
+                        {
+                            text: getText('Layout Diagram'),
+                            glyph: 0xf0e8,
+                            menu: [
+                                {
+                                    text: getText('Vertical Hierarchical Layout'),
+                                    scope: this,
+                                    handler: function(item)
+                                    {
+                                        var layout = new mxHierarchicalLayout(graph);
+                                        executeLayout(layout, true);
+                                    }
+                                },
+                                {
+                                    text: getText('Horizontal Hierarchical Layout'),
+                                    scope: this,
+                                    handler: function(item)
+                                    {
+                                        var layout = new mxHierarchicalLayout(graph,
+                                            mxConstants.DIRECTION_WEST);
+                                        executeLayout(layout, true);
+                                    }
+                                }, '-', {
+                                    text: getText('Organic Layout'),
+                                    scope: this,
+                                    handler: function(item) {
+                                        layoutModel("organic");
+                                    }
+                                }, {
+                                    text: getText('Circle Layout'),
+                                    scope: this,
+                                    handler: function(item) {
+                                        layoutModel("circular");
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },{
+                    hidden: (!viewConfig.styleGroup),
+                    text: getText('Style'),
+                    itemId: 'style',
+                    menu: styleMenu/*,
+					 glyph: 0xf0d0*/
+                },
 				{
 					hidden: (!viewConfig.connectionsGroup),
 					xtype: "segmentedbutton",
 					items: [
-					{
-						//glyph: 0xf0d1,
-						//iconCls: 'green-icon',
-						text: 'Flows/Transitions',
-						id: "connect",
-						pressed: true,
-						tooltip: "Use flows or transitions to connect primitives. Select a primitive and drag the arrow that appears over the primitive to make a connection. Flows transfer material. Transitions switch between states."
-					},
 					{
 						//glyph: 0xf095,
 						//iconCls: 'green-icon',
@@ -1256,27 +1200,8 @@ var RibbonPanel = function(graph, mainPanel, configPanel) {
 						tooltip: "Use links to connect primitives. Select a primitive and drag the arrow that appears over the primitive to make a connection. Links transfer information."
 					}
 					]
-				}, /*{
-					hidden: (!viewConfig.connectionsGroup),
-					text: getText('Using Flows/Transitions'),
-					id: 'connect',
-					iconCls: 'green-icon',
-					glyph: 0xf0d1,
-					//iconCls: 'flow-small-icon',//f043
-					tooltip: "The method used in new connections to connect primitive. Select a primitive and drag the arrow that appears to make a connection. Flows transfer material. Links transfer information.",
-					handler: function() {
-						var flow = (connectionType() == "Flow");
-						if (flow) {
-							Ext.getCmp("connect").setText("Using Information Links");
-							Ext.getCmp("connect").setGlyph(0xf095);
-						} else {
-							Ext.getCmp("connect").setText("Using Flows/Transitions");
-							Ext.getCmp("connect").setGlyph(0xf0d1);
-						}
-					},
-					scope: this
-
-				}*/, {
+				},
+				{
 					itemId: 'reverse',
 					hidden: (!viewConfig.connectionsGroup),
 					glyph: 0xf0ec,
@@ -1318,124 +1243,7 @@ var RibbonPanel = function(graph, mainPanel, configPanel) {
 					},
 					scope: this
 				},
-
-				'->',
-
-				/*{
-					hidden: (!is_editor) || is_embed || is_ebook,
-					text: getText(''),
-					glyph: 0xf059,
-					tooltip: getText("Insight Maker Help"),
-					handler: function() {
-						showURL("//insightmaker.com/help")
-					},
-					scope: this
-				}, {
-					xtype: 'tbseparator',
-					hidden: !viewConfig.actionsGroup
-				},*/
-
-				{
-					hidden: (!viewConfig.actionsGroup),
-					text: getText('Edit'),
-					itemId: 'actions',
-					menu: [
-				    	{
-		   					hidden: !viewConfig.actionsGroup,
-		   					itemId: 'undo',
-		   					text: "Undo",
-		   					glyph: 0xf0e2,
-		   					tooltip: getText('Undo change') + ' ' + cmd("Z"),
-		   					handler: function() {
-		   						undoHistory.undo();
-		   					},
-		   					scope: this
-		   				}, {
-		   					hidden: !viewConfig.actionsGroup,
-		   					itemId: 'redo',
-		   					text: "Redo",
-		   					glyph: 0xf01e,
-		   					tooltip: getText('Redo change') + ' ' + cmd("Y"),
-		   					handler: function() {
-		   						undoHistory.redo();
-		   					},
-		   					scope: this
-		   				},
-						'-',
-						editActions.copy,
-						editActions.cut,
-						editActions.paste,
-						'-',
-						editActions["delete"],
-						'-', {
-							text: getText('Find/Replace...'),
-							tooltip: getText('Find text in your model') + ' ' + cmd("F"),
-							handler: showFindAndReplace
-						}, {
-							text: getText('Find Next'),
-							tooltip: getText('Find the next occurrence of text in your model') + ' ' + cmd("G"),
-							handler: function() {
-								var but = Ext.getCmp('findNextBut');
-								if (but && (!but.disabled)) {
-									findNext();
-								}
-							}
-						}, '-', {
-							text: getText("Print..."),
-							glyph: 0xf02f,
-							handler: printGraph
-						},
-						'-', {
-							itemId: "zoomMenuButton",
-							text: getText('Zoom'),
-							glyph: 0xf002,
-							menu: zoomMenu
-						},
-						{
-							text: getText('Layout Diagram'),
-							glyph: 0xf0e8,
-							menu: [
-						        {
-						            text: getText('Vertical Hierarchical Layout'),
-						            scope: this,
-						            handler: function(item)
-						            {
-						                var layout = new mxHierarchicalLayout(graph);
-						                executeLayout(layout, true);
-						            }
-						        },
-						        {
-						            text: getText('Horizontal Hierarchical Layout'),
-						            scope: this,
-						            handler: function(item)
-						            {
-						                var layout = new mxHierarchicalLayout(graph,
-						                mxConstants.DIRECTION_WEST);
-						                executeLayout(layout, true);
-						            }
-						        }, '-', {
-										text: getText('Organic Layout'),
-										scope: this,
-										handler: function(item) {
-											layoutModel("organic");
-										}
-									}, {
-										text: getText('Circle Layout'),
-										scope: this,
-										handler: function(item) {
-											layoutModel("circular");
-										}
-									}
-							]
-						}
-					]
-				},{
-					hidden: (!viewConfig.styleGroup),
-					text: getText('Style'),
-					itemId: 'style',
-					menu: styleMenu/*,
-					glyph: 0xf0d0*/
-				}, {
+				 {
 					xtype: 'tbseparator',
 					hidden: !viewConfig.actionsGroup
 				}, 
@@ -1548,16 +1356,7 @@ var RibbonPanel = function(graph, mainPanel, configPanel) {
 					text: getText('Tools'),
 					itemId: "configgroup",
 					glyph: 0xf0ad,
-					menu: [{
-							itemId: 'scratchpad',
-							text: getText('Scratchpad'),
-							glyph: 0xf040,
-							tooltip: getText('Draw notes on your diagram') + ' ' + cmd("K"),
-							enableToggle: true,
-							handler: scratchpadFn,
-							xtype: 'menucheckitem',
-							scope: this
-						}, 
+					menu: [
 						{
 							xtype: 'menuseparator',
 							hidden: (!is_editor) || is_ebook
@@ -1623,24 +1422,7 @@ var RibbonPanel = function(graph, mainPanel, configPanel) {
 
 
 					]
-				}, {
-					hidden: is_editor,
-					cls: 'button',
-					text: getText('Zoom'),
-					glyph: 0xf002,
-					tooltip: getText('Zoom Diagram'),
-					itemId: 'zoomlargebutgrouped',
-					handler: function(menu) {},
-					menu: zoomMenu
-				}, {
-					hidden: is_ebook,
-					cls: 'button',
-					/*glyph: 0xf015,*/
-					iconCls: 'icon-icon',
-					href: '//InsightMaker.com',
-					tooltip: 'Insight Maker Home'
 				}
-				
 
 			])
 		})
