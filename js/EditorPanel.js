@@ -6,13 +6,6 @@ var EditorPanel = function() {
             stateful: is_editor && (! is_embed),
             collapseFirst: false,
             tools:[
-                {
-                    type: 'help',
-                    tooltip: getText('Insight Maker Help'),
-                    callback: function(panel, tool, event) {
-                        showURL("/help");
-                    }
-                }
             ],
             stateId: "editor_panel",
             region: 'west',
