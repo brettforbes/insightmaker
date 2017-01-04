@@ -31,7 +31,7 @@ const TEST_MESSAGE = MANAGEMENT_DIR + "TestMessage.png";
 const WIRE_TAP = MANAGEMENT_DIR + "WireTap.png";
 
 
-const PATTERN_DIR = COMPONENTS_DIR + "Pattern/";
+const PATTERN_DIR = COMPONENTS_DIR + "Patterns/";
 const MESSAGE = PATTERN_DIR + "Message.png";
 const COMMAND_MESSAGE = PATTERN_DIR + "CommandMessage.png";
 const CORRELATION_ID = PATTERN_DIR + "CorrelationID.png";
@@ -148,11 +148,7 @@ var EditorPanel = function() {
             header: ! is_embed,
             title: getText("Messaging Objects"),
             border: false,
-            rootVisible: false,
-            layout: {
-                type: "vbox",
-                align: "stretch"
-            }
+            rootVisible: false
         });
 
 
