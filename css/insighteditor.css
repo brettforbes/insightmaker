@@ -284,6 +284,15 @@ div.mxRubberband {
 	
 }
 
+.x-tree-icon {
+    width:79px!important;
+    height:49px!important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+
+
+
 .help-icon {
     background-image:url(../images/help.png) !important;
 }
