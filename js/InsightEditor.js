@@ -541,7 +541,7 @@ function main() {
 		graph.sizeDidChange();
 	});
 
-	editorPanel = Ext.create('Ext.Panel', EditorPanel());
+	editorPanel = Ext.create('Ext.tree.Panel', EditorPanel());
 	configPanel = Ext.create('Ext.Panel', ConfigPanel());
 	ribbonPanel = Ext.create('Ext.Panel', RibbonPanel(graph, editorPanel, mainPanel, configPanel));
 

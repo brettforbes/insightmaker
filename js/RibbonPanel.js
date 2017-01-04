@@ -342,20 +342,6 @@ var RibbonPanel = function(graph, editorPanel, mainPanel, configPanel) {
 				}
 			},
 
-			/*{
-				text: getText('Actor'),
-				handler: function() {
-					graph.setCellStyles(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_ACTOR, excludeType(graph.getSelectionCells(), "Ghost"));
-					graph.setCellStyles(mxConstants.STYLE_PERIMETER, mxConstants.PERIMETER_RECTANGLE, excludeType(graph.getSelectionCells(), "Ghost"));
-				}
-			},
-			{
-				text: getText('Arrow'),
-				handler: function() {
-					graph.setCellStyles(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_ARROW, excludeType(graph.getSelectionCells(), "Ghost"));
-					graph.setCellStyles(mxConstants.STYLE_PERIMETER, mxConstants.PERIMETER_RECTANGLE, excludeType(graph.getSelectionCells(), "Ghost"));
-				}
-			},*/
 			{
 				text: getText('Hexagon'),
 				handler: function() {
